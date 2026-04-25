@@ -1,32 +1,33 @@
-# 🧠 Personal Predictor App
+# Finsight AI Dashboard
 
 <p align="center">
-  <img src="https://img.icons8.com/fluency/96/artificial-intelligence.png" alt="AI Logo" width="100"/>
+  <img src="https://img.icons8.com/fluency/96/artificial-intelligence.png" alt="Finsight AI Logo" width="110"/>
 </p>
 
 <p align="center">
-  <b>Smart Predictions Powered by Machine Learning</b>
+  <b>AI-Powered Predictive Analytics Dashboard</b><br/>
+  Turning data into intelligent insights
 </p>
 
 ---
 
-🔗 **Live Demo:** https://personal-predictor.streamlit.app/
+🔗 **Live Demo:** https://finsight-ai-dashboard.streamlit.app/
 
 ---
 
 ## 📌 Overview
 
-**Personal Predictor** is an interactive machine learning web application built using Streamlit. It allows users to input data and receive real-time predictions in a simple and user-friendly interface.
+**Finsight AI Dashboard** is a machine learning-powered web application built with Streamlit that delivers intelligent predictions through an interactive dashboard interface. It simplifies complex data analysis, enabling users to generate insights quickly and efficiently.
 
 ---
 
-## 🎯 Features
+## 🎯 Key Features
 
-* 📊 Interactive user input system
-* 🤖 Real-time ML predictions
-* ⚡ Fast and responsive UI
-* 📈 Clean output display
-* 🌐 Live deployed app
+* 📊 Interactive dashboard for user input
+* 🤖 AI-driven predictive modeling
+* ⚡ Real-time data processing & results
+* 📈 Clean and intuitive visualization
+* 🌐 Fully deployed and accessible online
 
 ---
 
@@ -34,14 +35,18 @@
 
 * **Frontend & Deployment:** Streamlit
 * **Backend:** Python
-* **Libraries:** Pandas, NumPy, Scikit-learn
+* **Libraries:**
+
+  * Pandas
+  * NumPy
+  * Scikit-learn
 
 ---
 
 ## 📂 Project Structure
 
-```bash
-project/
+```bash id="4g2kq1"
+finsight-ai-dashboard/
 │-- app.py
 │-- requirements.txt
 │-- model.pkl
@@ -50,9 +55,9 @@ project/
 
 ---
 
-## ⚙️ Run Locally
+## ⚙️ Installation & Local Setup
 
-```bash
+```bash id="7h1klo"
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 pip install -r requirements.txt
@@ -61,28 +66,42 @@ streamlit run app.py
 
 ---
 
-## 📸 Live Demo
+## 📸 Live Application
 
-👉 https://personal-predictor.streamlit.app/
+👉 https://finsight-ai-dashboard.streamlit.app/
 
 ---
 
 ## 💡 Use Cases
 
-* Data science portfolio
-* ML model demonstration
-* Learning projects
+* Data Science & ML portfolio projects
+* Predictive analytics demonstrations
+* Dashboard-based decision tools
+* Learning and experimentation
 
 ---
 
-## 🚀 Future Improvements
+## 🚀 Future Enhancements
 
-* Better UI/UX
-* More advanced models
+* Advanced ML models integration
+* Improved UI/UX design
 * Authentication system
+* Custom domain deployment
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork the repository and submit a pull request.
+
+---
+
+## 📬 Contact
+
+For queries or collaborations, feel free to connect.
 
 ---
 
 ## ⭐ Support
 
-If you like this project, give it a ⭐ on GitHub!
+If you found this project useful, don’t forget to ⭐ the repository!
