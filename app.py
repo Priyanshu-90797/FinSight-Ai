@@ -1,11 +1,3 @@
-"""
-FinSight AI ─ Next-Level Premium Dashboard
-Upgrade of the basic app.py → cinematic dark UI, glass morphism,
-Plotly pro charts, animated KPIs, smart advisor, forecast with confidence bands.
-
-Run:  streamlit run app.py
-"""
-
 from __future__ import annotations
 import warnings
 from pathlib import Path
@@ -34,16 +26,10 @@ from ml_model import train_model, load_pipeline, predict_month_expenses, MODEL_P
 from chatbot import FinSightAdvisor
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE CONFIG
-# ══════════════════════════════════════════════════════════════════════════════
 st.set_page_config(page_title="FinSight AI", page_icon="💎",
                    layout="wide", initial_sidebar_state="expanded")
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# DESIGN TOKENS & GLOBAL CSS
-# ══════════════════════════════════════════════════════════════════════════════
 VIOLET  = "#7C3AED"
 VIOLET2 = "#A78BFA"
 TEAL    = "#0D9488"
@@ -56,10 +42,7 @@ PAL = ["#2DD4BF", "#38BDF8", "#A78BFA", "#F59E0B", "#F472B6", "#60A5FA", "#34D39
 
 st.markdown(f"""
 <style>
-/* ─── FONTS ─────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
-
-/* ─── CSS VARIABLES ──────────────────────────────────────────────────────── */
 :root {{
   --bg0:    #02030A;
   --bg1:    #050816;
@@ -84,7 +67,6 @@ st.markdown(f"""
   --body:   'Outfit', sans-serif;
 }}
 
-/* ─── GLOBAL ─────────────────────────────────────────────────────────────── */
 html, body, [class*="css"], .stApp {{
   font-family: var(--body) !important;
   background:
@@ -163,7 +145,6 @@ h1, h2, h3 {{
   to   {{ filter: drop-shadow(0 0 5px rgba(255,255,255,.14)); }}
 }}
 
-/* ─── SIDEBAR ────────────────────────────────────────────────────────────── */
 section[data-testid="stSidebar"] {{
   background:
     linear-gradient(180deg, rgba(3,5,16,.96) 0%, rgba(5,10,28,.96) 100%) !important;
@@ -228,20 +209,17 @@ div[role="radiogroup"] label:has(input:checked) {{
   box-shadow: inset 3px 0 0 {SKY}, 0 0 26px rgba(14,165,233,.18);
 }}
 
-/* ─── PAGE HEADER ────────────────────────────────────────────────────────── */
 .ph {{ padding: 36px 0 28px; border-bottom: 1px solid var(--b0); margin-bottom: 32px; }}
 .ph-eye  {{ font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--v2); margin-bottom:6px; }}
 .ph-h1   {{ font-size:34px; font-weight:900; letter-spacing:-1.2px; color:var(--t1); margin:0 0 8px; line-height:1.05; }}
 .ph-sub  {{ font-size:15px; font-weight:300; color:var(--t2); }}
 
-/* ─── SECTION TITLE ──────────────────────────────────────────────────────── */
 .stitle {{
   font-size:16px; font-weight:700; color:var(--t1);
   display:flex; align-items:center; gap:10px; margin:0 0 18px;
 }}
 .stitle::after {{ content:''; flex:1; height:1px; background:var(--b0); }}
 
-/* ─── KPI CARD ───────────────────────────────────────────────────────────── */
 .kc {{
   border-radius:20px; padding:24px 22px;
   position:relative; overflow:hidden;
@@ -289,7 +267,6 @@ div[role="radiogroup"] label:has(input:checked) {{
 .badge.down {{ background:rgba(225,29,72,.15);  color:{ROSE};  }}
 .badge.neu  {{ background:rgba(152,152,192,.12); color:var(--t2); }}
 
-/* ─── GLASS PANEL ────────────────────────────────────────────────────────── */
 .gp {{
   border-radius:20px; padding:26px;
   position:relative; overflow:hidden;
@@ -318,7 +295,6 @@ div[data-testid="stPlotlyChart"]:hover {{
   box-shadow: 0 24px 68px rgba(0,0,0,.46), 0 0 24px rgba(14,165,233,.09);
 }}
 
-/* ─── ALERT CARDS ────────────────────────────────────────────────────────── */
 .ac {{
   border-radius: 20px;
   padding: 18px 20px 18px 22px;
@@ -462,13 +438,11 @@ div[data-testid="stPlotlyChart"]:hover {{
   max-width: 92%;
 }}
 
-/* ─── PROGRESS BAR ───────────────────────────────────────────────────────── */
 .pb-wrap {{ margin:12px 0; }}
 .pb-lbl  {{ display:flex; justify-content:space-between; font-size:12px; color:var(--t2); margin-bottom:5px; }}
 .pb-trk  {{ height:9px; background:rgba(255,255,255,.07); border-radius:99px; overflow:hidden; box-shadow:inset 0 1px 8px rgba(0,0,0,.36); }}
 .pb-fil  {{ height:100%; border-radius:99px; box-shadow:0 0 18px currentColor; }}
 
-/* ─── STAT ROWS ──────────────────────────────────────────────────────────── */
 .sr {{ display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid var(--b0); }}
 .sr:last-child {{ border:none; }}
 .sr-lbl {{ font-size:13px; color:var(--t2); }}
@@ -484,7 +458,6 @@ div[data-testid="stPlotlyChart"]:hover {{
   line-height:1;
 }}
 
-/* ─── CHAT ───────────────────────────────────────────────────────────────── */
 .chat-empty {{
   text-align:center; padding:56px 24px; color:var(--t3);
 }}
@@ -510,7 +483,6 @@ div[data-testid="stPlotlyChart"]:hover {{
   border-left:3px solid {VIOLET2};
 }}
 
-/* ─── QA BUTTONS ─────────────────────────────────────────────────────────── */
 .stButton > button {{
   background: linear-gradient(135deg,{VIOLET},{INDIGO}) !important;
   color: white !important; border: none !important;
@@ -525,7 +497,6 @@ div[data-testid="stPlotlyChart"]:hover {{
   box-shadow: 0 10px 32px rgba(124,58,237,.45) !important;
 }}
 
-/* ─── INPUTS ─────────────────────────────────────────────────────────────── */
 .stTextInput > div > div > input,
 .stTextArea  > div > div > textarea {{
   background: rgba(255,255,255,0.04) !important;
@@ -546,7 +517,6 @@ div[data-testid="stPlotlyChart"]:hover {{
   border-radius: 10px !important; color: var(--t1) !important;
 }}
 
-/* ─── METRIC WIDGET ──────────────────────────────────────────────────────── */
 div[data-testid="stMetric"] {{
   background: var(--glass); border: 1px solid var(--b0);
   border-radius: 16px; padding: 18px 20px;
@@ -562,7 +532,6 @@ div[data-testid="stAlert"] {{
   backdrop-filter: blur(16px);
 }}
 
-/* ─── MISC OVERRIDES ─────────────────────────────────────────────────────── */
 div[data-testid="stExpander"] {{
   background: var(--glass) !important; border: 1px solid var(--b0) !important;
   border-radius: 14px !important;
@@ -574,10 +543,6 @@ header[data-testid="stHeader"] {{ background:transparent !important; }}
 </style>
 """, unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PLOTLY THEME
-# ══════════════════════════════════════════════════════════════════════════════
 _PLY = dict(
     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
     font=dict(family="Outfit", color="#9898C0", size=12),
@@ -600,10 +565,6 @@ def pf(fig: go.Figure, *, xg=True, yg=True) -> go.Figure:
                      zeroline=False, showline=False, tickfont=_TF)
     return fig
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# CACHED LOADERS
-# ══════════════════════════════════════════════════════════════════════════════
 @st.cache_data(show_spinner=False)
 def get_df():
     return load_data()
@@ -682,10 +643,6 @@ def normalize_finance_csv(raw_df: pd.DataFrame):
 
     return df, None
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# UI PRIMITIVES
-# ══════════════════════════════════════════════════════════════════════════════
 def page_header(eye: str, h1: str, sub: str = "") -> None:
     st.markdown(f"""
     <div class="ph">
@@ -740,10 +697,6 @@ def alert(cls: str, icon: str, title: str, desc: str) -> None:
       </div>
     </div>""", unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# SIDEBAR
-# ══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
     st.markdown("""
     <div class="logo-wrap">
@@ -756,7 +709,6 @@ with st.sidebar:
         ["💎  Overview", "📈  Analytics", "🔮  Forecast", "🤖  AI Advisor"],
         label_visibility="collapsed")
 
-    # Paste point: upload block goes below navigation and before Filter Period.
     st.markdown("""
     <style>
       .data-panel-divider {
@@ -1006,10 +958,6 @@ with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f'<p style="font-size:11px;color:#4A4A70;padding:0 4px">{len(df):,} records · {sd:%d %b %Y} → {ed:%d %b %Y}</p>', unsafe_allow_html=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE 1 ─ OVERVIEW
-# ══════════════════════════════════════════════════════════════════════════════
 if page == "💎  Overview":
     page_header("FINANCIAL OVERVIEW", "Your Wealth Command Center",
                 "Live snapshot of income, expenses, savings health, and smart alerts.")
@@ -1022,7 +970,6 @@ if page == "💎  Overview":
     insights=generate_insights(df)
     opp     = savings_opportunity_report(df)
 
-    # ── 4 KPI Cards ────────────────────────────────────────────────────────
     c1, c2, c3, c4 = st.columns(4, gap="medium")
     sr, ns = kpis["savings_rate"], kpis["net_savings"]
     kpi_card(c1, "💰", "Total Income",   fmt_inr(kpis["total_income"],  compact=True),
@@ -1037,7 +984,7 @@ if page == "💎  Overview":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Cash Flow Trend + Donut Pie ─────────────────────────────────────────
+    
     ca, cb = st.columns([3, 2], gap="large")
 
     with ca:
@@ -1094,7 +1041,6 @@ if page == "💎  Overview":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Smart Alerts + Savings Health ──────────────────────────────────────
     cc, cd = st.columns(2, gap="large")
 
     with cc:
@@ -1147,7 +1093,6 @@ if page == "💎  Overview":
           <div class="sr"><span class="sr-lbl">📉 Worst month</span><span class="sr-val">{opp['worst_month']}</span></div>
         </div>""", unsafe_allow_html=True)
 
-    # ── Daily Expense Sparkline ─────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     stitle("📅 Daily Expense Rhythm")
     dfs = df.sort_values("date").copy()
@@ -1167,10 +1112,6 @@ if page == "💎  Overview":
     figsp.update_layout(hovermode="x unified")
     st.plotly_chart(pf(figsp), use_container_width=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE 2 ─ ANALYTICS
-# ══════════════════════════════════════════════════════════════════════════════
 elif page == "📈  Analytics":
     page_header("SPENDING INTELLIGENCE", "Deep-Dive Analytics",
                 "Granular category breakdown, time patterns, and income composition.")
@@ -1179,7 +1120,6 @@ elif page == "📈  Analytics":
     src     = get_income_source_summary(df)
     monthly = get_monthly_summary(df)
 
-    # ── Category Leaderboard ───────────────────────────────────────────────
     stitle("📊 Category Leaderboard")
     fig_lb = go.Figure()
     for i, row in cat.iterrows():
@@ -1195,7 +1135,6 @@ elif page == "📈  Analytics":
     fig_lb.update_yaxes(categoryorder="total ascending")
     st.plotly_chart(pf(fig_lb, yg=False), use_container_width=True)
 
-    # ── Heatmap + Income Sources ───────────────────────────────────────────
     ch, ci = st.columns([3, 2], gap="large")
     with ch:
         stitle("🗓 Category × Month Heatmap")
@@ -1230,7 +1169,6 @@ elif page == "📈  Analytics":
         else:
             st.info("No income data for this period.")
 
-    # ── Waterfall ──────────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     stitle("🌊 Monthly Net Savings Waterfall")
 
@@ -1251,7 +1189,6 @@ elif page == "📈  Analytics":
     ))
     st.plotly_chart(pf(fig_wf), use_container_width=True)
 
-    # ── Weekday Heatmap ────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     stitle("📆 Weekday Spending Pattern")
     wd_order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -1271,10 +1208,6 @@ elif page == "📈  Analytics":
     fig_wd.update_layout(yaxis_title="Average Daily Expense (₹)")
     st.plotly_chart(pf(fig_wd), use_container_width=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE 3 ─ FORECAST
-# ══════════════════════════════════════════════════════════════════════════════
 elif page == "🔮  Forecast":
     page_header("ML PREDICTION ENGINE", "Expense Forecasting",
                 "Gradient Boosting model predicts your daily expenses using temporal patterns.")
@@ -1282,7 +1215,6 @@ elif page == "🔮  Forecast":
     with st.spinner("Loading prediction model …"):
         pipe = get_pipe()
 
-    # ── Controls ───────────────────────────────────────────────────────────
     st.markdown('<div class="gp">', unsafe_allow_html=True)
     fc1, fc2, fc3 = st.columns([1, 1, 1], gap="medium")
     with fc1:
@@ -1347,7 +1279,6 @@ elif page == "🔮  Forecast":
             st.dataframe(disp.rename(columns={"date":"Date","predicted_expense":"Predicted Expense"}),
                          use_container_width=True, hide_index=True)
 
-    # ── Retrain + Eval ─────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     stitle("⚙️ Model Evaluation")
     if st.button("🔄 Re-train & Evaluate"):
@@ -1401,10 +1332,6 @@ elif page == "🔮  Forecast":
             figap.update_layout(xaxis_title="Actual (₹)", yaxis_title="Predicted (₹)")
             st.plotly_chart(pf(figap), use_container_width=True)
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# PAGE 4 ─ AI ADVISOR
-# ══════════════════════════════════════════════════════════════════════════════
 elif page == "🤖  AI Advisor":
     page_header("POWERED BY CLAUDE", "Your Personal Finance AI",
                 "Context-aware advice grounded in your real transaction data — not generic tips.")
@@ -1421,7 +1348,6 @@ elif page == "🤖  AI Advisor":
 
     adv: FinSightAdvisor = st.session_state.adv
 
-    # ── Quick Action Chips ─────────────────────────────────────────────────
     stitle("⚡ Instant Insights")
     qa_map = {
         "📋 Health Check":   "Give me a concise financial health summary with exact numbers and a rating out of 10.",
@@ -1444,7 +1370,7 @@ elif page == "🤖  AI Advisor":
     st.markdown("<br>", unsafe_allow_html=True)
     stitle("💬 Conversation")
 
-    # ── Chat Render ────────────────────────────────────────────────────────
+
     if not st.session_state.chat:
         st.markdown("""
         <div class="chat-empty">
@@ -1463,7 +1389,6 @@ elif page == "🤖  AI Advisor":
                 st.markdown(content)
                 st.markdown('</div></div>', unsafe_allow_html=True)
 
-    # ── Input Row ──────────────────────────────────────────────────────────
     st.markdown("<br>", unsafe_allow_html=True)
     with st.form("cf", clear_on_submit=True):
         i1, i2 = st.columns([6, 1], gap="small")
@@ -1477,7 +1402,6 @@ elif page == "🤖  AI Advisor":
             st.session_state.chat.append(("assistant", adv.chat(q.strip())))
         st.rerun()
 
-    # ── Bottom Row ─────────────────────────────────────────────────────────
     if st.session_state.chat:
         _, clr = st.columns([5, 1])
         if clr.button("🗑 Clear", use_container_width=True):
@@ -1485,7 +1409,7 @@ elif page == "🤖  AI Advisor":
             adv.reset()
             st.rerun()
 
-    # ── Financial context preview ──────────────────────────────────────────
+    
     with st.expander("🔍 View Financial Context injected into AI"):
         st.code(build_finance_context(df), language="text")
 
