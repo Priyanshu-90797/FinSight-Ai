@@ -10,7 +10,7 @@ class FinSightAdvisor:
 
         question = question.lower()
 
-        # 🔒 safety checks
+        
         if self.df.empty:
             return "No data available. Please upload or generate data first."
 
@@ -28,7 +28,7 @@ class FinSightAdvisor:
         savings = total_income - total_expense
         savings_rate = (savings / total_income) * 100 if total_income > 0 else 0
 
-        # 🔥 1. SAVINGS ADVICE (UPGRADED)
+    
         if "save" in question or "saving" in question:
 
             suggestions = []
@@ -59,7 +59,7 @@ class FinSightAdvisor:
 🔥 Tip: Focus on reducing {top_cat} first for maximum impact
 """
 
-        # 🔥 2. OVERSPENDING ANALYSIS (UPGRADED)
+    
         elif "overspend" in question or "spending" in question:
 
             analysis = []
@@ -88,7 +88,7 @@ class FinSightAdvisor:
 👉 Recommendation: Reduce this category first
 """
 
-        # 🔥 3. FUTURE PREDICTION (UPGRADED)
+    
         elif "future" in question or "predict" in question:
 
             monthly = self.df.groupby(self.df['date'].dt.to_period('M'))['expense'].sum()
@@ -117,7 +117,7 @@ Growth Trend: {round(growth*100,1)}% ({trend})
 
             return "⚠️ Not enough data to predict future expenses."
 
-        # 🔥 4. FINANCIAL HEALTH (UPGRADED)
+        
         elif "health" in question:
 
             if savings_rate >= 20:
@@ -140,7 +140,7 @@ Status: {status}
 🎯 Recommended: Save at least 20% of income
 """
 
-        # 🔥 DEFAULT SMART RESPONSE
+        
         else:
             return f"""
 🤖 **FinSight AI Assistant**
