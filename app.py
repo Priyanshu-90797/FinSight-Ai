@@ -571,8 +571,9 @@ def get_df():
 
 @st.cache_resource(show_spinner=False)
 def get_pipe():
-    if MODEL_PATH.exists():
-        return load_pipeline()
+    pipe = load_pipeline()
+    if pipe is not None:
+        return pipe
     return train_model(get_df())["pipeline"]
 
 @st.cache_resource(show_spinner=False)

@@ -6,8 +6,12 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 from pathlib import Path
 
-MODEL_PATH = Path("models/model.pkl")
+# Resolve relative to this file so the model location is stable when the app is
+# launched from Streamlit Cloud (or any other working directory).
+MODEL_PATH = Path(__file__).resolve().parent / "models" / "model.pkl"
 
+
+# 🔥 FEATURE ENGINEERING
 def prepare_features(df):
     df = df.copy()
 
@@ -18,6 +22,7 @@ def prepare_features(df):
     return df
 
 
+# 🚀 TRAIN MODEL
 def train_model(df):
 
     df = prepare_features(df)
@@ -25,6 +30,7 @@ def train_model(df):
     X = df[["month", "day", "weekday"]]
     y = df["expense"]
 
+    # 🔥 train-test split (important)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
@@ -37,14 +43,22 @@ def train_model(df):
 
     model.fit(X_train, y_train)
 
+    # 🔥 predictions
     y_pred = model.predict(X_test)
 
+    # 🔥 metrics
     mae = mean_absolute_error(y_test, y_pred)
     rmse = np.sqrt(mean_squared_error(y_test, y_pred))
     r2 = r2_score(y_test, y_pred)
 
-    MODEL_PATH.parent.mkdir(exist_ok=True)
-    joblib.dump(model, MODEL_PATH)
+    # 🔥 save model
+    # Cloud deployments may mount the source directory as read-only.  The
+    # in-memory model is still perfectly usable, so persistence is optional.
+    try:
+        MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(model, MODEL_PATH)
+    except OSError:
+        pass
 
     return {
         "pipeline": model,
@@ -62,15 +76,27 @@ def train_model(df):
     }
 
 
+# 🚀 LOAD MODEL (SAFE)
 def load_pipeline():
-    if MODEL_PATH.exists():
+    """Load a compatible cached model, or return ``None`` to retrain it.
+
+    Joblib models are tied to the Python, NumPy, and scikit-learn modules that
+    created them.  Returning ``None`` here lets the app recreate an old model
+    after a Streamlit Cloud dependency/runtime upgrade.
+    """
+    if not MODEL_PATH.exists():
+        return None
+
+    try:
         return joblib.load(MODEL_PATH)
-    else:
-        raise FileNotFoundError("Model not trained yet. Run training first.")
+    except (ModuleNotFoundError, ImportError, AttributeError, TypeError, ValueError):
+        return None
 
 
+# 🔮 PREDICT MONTH EXPENSES
 def predict_month_expenses(year, month, model):
 
+    # 🔥 correct days in month
     dates = pd.date_range(
         start=f"{year}-{month:02d}-01",
         end=f"{year}-{month:02d}-28"
@@ -83,10 +109,11 @@ def predict_month_expenses(year, month, model):
         df[["month", "day", "weekday"]]
     )
 
+    # 🔥 smoothing (realistic prediction)
     df["predicted_expense"] = (
     df["predicted_expense"]
     .rolling(window=3, min_periods=1)
     .mean()
 )
 
-    return df  
+    return df

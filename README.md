@@ -1,114 +1,83 @@
-# Finsight AI Dashboard
+<h1 align="center">FinSight AI</h1>
 
 <p align="center">
-  <img src="https://img.icons8.com/fluency/96/artificial-intelligence.png" alt="Finsight AI Logo" width="110"/>
+  Financial Analytics Dashboard for Data-Driven Insights
 </p>
 
 <p align="center">
-  <b>AI-Powered Predictive Analytics Dashboard</b><br/>
-  Turning data into intelligent insights
+  <a href="https://your-app-name.streamlit.app"><strong>View Live Demo</strong></a>
 </p>
 
 ---
 
-🔗 **Live Demo:** https://finsight-ai-dashboard.streamlit.app/
+## Overview
+
+FinSight AI is a financial analytics dashboard that enables users to upload transaction data and analyze income, expenses, and savings through interactive visualizations.
+The application converts raw financial data into structured insights to support better financial decision-making.
 
 ---
 
-## 📌 Overview
+## Key Features
 
-**Finsight AI Dashboard** is an AI-powered predictive analytics platform designed to transform raw data into meaningful insights through an interactive and user-friendly dashboard. Built using Python and Streamlit, the application integrates machine learning models to analyze input data and generate real-time predictions that support data-driven decision-making.
-
-The dashboard is structured to simplify complex analytical workflows by allowing users to seamlessly input parameters, visualize outcomes, and interpret predictions without requiring deep technical expertise. It bridges the gap between data science and practical application by presenting results in a clean, intuitive interface.
-
-Finsight AI is not just a prediction tool—it represents a scalable foundation for building intelligent systems that can be extended to various domains such as finance, healthcare, education, and business analytics. The project demonstrates the end-to-end implementation of a machine learning pipeline, including data processing, model integration, and deployment as a live web application.
-
-By combining performance, usability, and accessibility, Finsight AI Dashboard showcases how modern AI solutions can be deployed effectively to deliver actionable insights in real-world scenarios.
-
-
----
-
-## 🎯 Key Features
-
-* 📊 Interactive dashboard for user input
-* 🤖 AI-driven predictive modeling
-* ⚡ Real-time data processing & results
-* 📈 Clean and intuitive visualization
-* 🌐 Fully deployed and accessible online
+* CSV-based financial data upload
+* Real-time dashboard updates
+* Income, expense, and net savings tracking
+* Category-wise spending analysis
+* Monthly trend visualization
+* Insight generation based on spending patterns
+* Filter-based data exploration
 
 ---
 
-## 🛠️ Tech Stack
+## How It Works
 
-* **Frontend & Deployment:** Streamlit
-* **Backend:** Python
-* **Libraries:**
-
-  * Pandas
-  * NumPy
-  * Scikit-learn
+1. Upload a financial dataset (CSV format)
+2. The system processes and standardizes the data
+3. Key financial metrics are computed instantly
+4. Charts and insights update dynamically based on the dataset
 
 ---
 
-## 📂 Project Structure
+## Data Format
 
-```bash id="4g2kq1"
-finsight-ai-dashboard/
-│-- app.py
-│-- requirements.txt
-│-- model.pkl
-│-- data.csv
+The application expects a CSV file with the following structure:
+
+```csv
+date,income,category,expense
+2026-01-01,50000,Food,500
+2026-01-02,0,Shopping,1200
+2026-01-03,0,Bills,3000
 ```
 
 ---
 
-## ⚙️ Installation & Local Setup
+## Technology Stack
 
-```bash id="7h1klo"
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-pip install -r requirements.txt
-streamlit run app.py
-```
+* Python
+* Streamlit
+* Pandas
+* Plotly
 
 ---
 
-## 📸 Live Application
+## Deployment
 
-👉 https://finsight-ai-dashboard.streamlit.app/
-
----
-
-## 💡 Use Cases
-
-* Data Science & ML portfolio projects
-* Predictive analytics demonstrations
-* Dashboard-based decision tools
-* Learning and experimentation
+The application is deployed using Streamlit Cloud and is accessible via the live demo link above.
 
 ---
 
-## 🚀 Future Enhancements
+## Use Cases
 
-* Advanced ML models integration
-* Improved UI/UX design
-* Authentication system
-* Custom domain deployment
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to fork the repository and submit a pull request.
+* Personal finance tracking
+* Expense analysis and monitoring
+* Budget awareness and planning
+* Data visualization and analytics learning
 
 ---
 
-## 📬 Contact
+## Future Enhancements
 
-For queries or collaborations, feel free to connect.
-
----
-
-## ⭐ Support
-
-If you found this project useful, don’t forget to ⭐ the repository!
+* AI-based financial advisor
+* Budget recommendation system
+* Advanced forecasting features
+* User account integration
